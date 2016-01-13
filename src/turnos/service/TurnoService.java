@@ -1,7 +1,7 @@
 /**
  * 
  */
-package turnos;
+package turnos.service;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import turnos.Turno;
+import turnos.modelo.Turno;
 
 /**
  * @author Valenn
@@ -35,9 +35,9 @@ public class TurnoService {
 	public Response getTurnos(){	
 		
 		ArrayList<Turno> list = new ArrayList<Turno>();
-		list.add(new Turno(1,"Descripcion turno 1"));
-		list.add(new Turno(2,"Descripcion turno 2"));
-		list.add(new Turno(3,"Descripcion turno 3"));
+//		list.add(new Turno(1,"Descripcion turno 1"));
+//		list.add(new Turno(2,"Descripcion turno 2"));
+//		list.add(new Turno(3,"Descripcion turno 3"));
 		String json = new Gson().toJson(list);
 		// return HTTP response 200 in case of success
 		return Response.status(200).entity(json).build();		
