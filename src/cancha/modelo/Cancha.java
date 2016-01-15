@@ -2,16 +2,19 @@ package cancha.modelo;
 
 public class Cancha {
 
-	public Cancha(long id, String descripcion) {
+	
+	public Cancha() {
+		// TODO Auto-generated constructor stub
 		super();
-		this.id = id;
+	}
+	
+
+	public Cancha(String descripcion) {
+		// TODO Auto-generated constructor stub
+		super();
 		this.descripcion = descripcion;
 	}
 
-	public Cancha() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	private long id;
 	private String descripcion;
 

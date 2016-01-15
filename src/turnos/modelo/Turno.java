@@ -13,24 +13,24 @@ import predio.modelo.Predio;
  */
 public class Turno {
 
-	public Turno(long id, String description, Predio predio, Date horario, Senia senia) {
+	public Turno() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Turno(String descripcion, Predio predio, Date horario, Senia senia) {
+		// TODO Auto-generated constructor stub
 		super();
-		this.id = id;
-		this.description = description;
+		this.descripcion = descripcion;
 		this.predio = predio;
 		this.horario = horario;
 		this.senia = senia;
-	}
-
-	public Turno() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param args
 	 */
 	private long id;
-	private String description;
+	private String descripcion;
 	private Predio predio;
 	private Date horario;
 	private Senia senia;
@@ -48,12 +48,12 @@ public class Turno {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Predio getPredio() {

@@ -20,6 +20,25 @@ public class Producto {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Producto(String codigo, String descripcion) {
+		super();
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+	}
+
+	public Producto(String codigo, String descripcion, Usuario provedor, int cantidad, float precio_compra,
+			float precio_venta, String foto) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.cantidad = cantidad;
+		this.provedor = provedor;
+		this.precio_compra = precio_compra;
+		this.precio_venta = precio_venta;
+		this.foto = foto;
+	}
+
 	private long id;
 	private String codigo;
 	private String descripcion;

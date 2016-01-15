@@ -2,20 +2,23 @@ package usuario.modelo;
 
 import java.util.List;
 
-public class Usuario {
+import usuario.rol.modelo.Rol;
 
-	public Usuario(long id, String nombre_apellido, List<String> emails, List<String> telefonos, Rol rol) {
-		super();
-		this.id = id;
+public class Usuario {
+	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Usuario(String nombre_apellido, List<String> emails, List<String> telefonos, Rol rol) {
+		// TODO Auto-generated constructor stub
+		super();		
 		this.nombre_apellido = nombre_apellido;
 		this.emails = emails;
 		this.telefonos = telefonos;
 		this.rol = rol;
 	}
-	public Usuario() {
-		// TODO Auto-generated constructor stub
-	}
-	
+
 	private long id;
 	private String nombre_apellido;
 	private List<String> emails;

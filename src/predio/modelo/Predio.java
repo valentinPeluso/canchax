@@ -1,5 +1,6 @@
 package predio.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cancha.modelo.Cancha;
@@ -8,21 +9,9 @@ import turnos.modelo.Turno;
 import usuario.modelo.Usuario;
 
 public class Predio {
-
-	public Predio(long id, String direccion, List<Usuario> empleados, List<Cancha> canchas, List<Turno> turnos,
-			List<Producto> productos) {
-		super();
-		this.id = id;
-		this.direccion = direccion;
-		this.empleados = empleados;
-		this.canchas = canchas;
-		this.turnos = turnos;
-		this.productos = productos;
-	}
 	
-	public Predio() {
-		// TODO Auto-generated constructor stub
-	}
+	//singleton
+	private static Predio instance = null;
 	
 	private long id;
 	private String direccion;
@@ -30,6 +19,28 @@ public class Predio {
 	private List<Cancha> canchas;
 	private List<Turno> turnos;
 	private List<Producto> productos;
+	
+	protected Predio() {
+	    
+	}	
+	
+	public Predio(String direccion, ArrayList<Usuario> empleados, ArrayList<Cancha> canchas,
+			ArrayList<Turno> turnos, ArrayList<Producto> productos) {
+		// TODO Auto-generated constructor stub
+		super();		
+		this.direccion = direccion;
+		this.empleados = empleados;
+		this.canchas = canchas;
+		this.turnos = turnos;
+		this.productos = productos;
+	}
+
+	public static Predio getInstance() {
+	     if(instance == null) {
+	         instance = new Predio();
+	     }
+	     return instance;
+	}
 	
 	public long getId() {
 		return id;

@@ -1,18 +1,19 @@
-package usuario.modelo;
+package usuario.rol.modelo;
 
-public class Rol {
+public abstract class Rol {
 
-	public Rol(long id, String descripcion) {
+	public Rol(String descripcion) {
 		super();
-		this.id = id;
 		this.descripcion = descripcion;
 	}
+	
 	public Rol() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	private long id;
 	private String descripcion;
+	
 	public long getId() {
 		return id;
 	}
