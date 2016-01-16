@@ -45,7 +45,7 @@ public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
 			this.delete(entity);
 		}
 		return entity;
-	}	
+	}
 	@Override
 	public void save(T entity) {
 		EntityTransaction etx = this.getEntityManager().getTransaction();
@@ -79,7 +79,6 @@ public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
 	public List<T> list() {
 		EntityTransaction etx = this.getEntityManager().getTransaction();
 		etx.begin();
-		@SuppressWarnings("unchecked")
 		List<T> items=(List<T>)((this.getEntityManager().createQuery(String.format("FROM %s", this.getClassName()))).getResultList());
 		etx.commit();
 		return items;
