@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class RolProvedor extends Rol implements Serializable{
@@ -22,6 +26,9 @@ public class RolProvedor extends Rol implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	@OneToMany()
+	@JoinColumn(name="ID_ROL")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private List<Producto> productos;
 
 	public List<Producto> getProductos() {

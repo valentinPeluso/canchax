@@ -3,13 +3,29 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Cascade;
 
 /**
  * @author Valenn
  *
  */
-public class Turno {
+@Entity
+public class Turno implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8160124978538221149L;
 
 	public Turno() {
 		// TODO Auto-generated constructor stub
@@ -27,8 +43,14 @@ public class Turno {
 	/**
 	 * @param args
 	 */
+	@Id
+	@GeneratedValue
 	private long id;
 	private String descripcion;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Predio predio;
 	private Date horario;
 	private Senia senia;

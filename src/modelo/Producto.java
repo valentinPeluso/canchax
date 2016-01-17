@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -56,6 +57,8 @@ public class Producto implements Serializable {
 	private long id;
 	private String codigo;
 	private String descripcion;
+	
+	@Column(nullable = true)
 	private int cantidad;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -63,8 +66,12 @@ public class Producto implements Serializable {
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Usuario provedor;
 	
+	@Column(nullable = true)
 	private float precio_compra;
+	@Column(nullable = true)
 	private float precio_venta;
+	
+	@Column(nullable = true)
 	private String foto;
 	
 	public long getId() {

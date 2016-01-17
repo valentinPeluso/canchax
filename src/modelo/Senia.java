@@ -1,6 +1,18 @@
 package modelo;
 
-public class Senia {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Senia implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7391394693390747530L;
 
 	public Senia(long id, float cantidad, String descripcion, String telefono) {
 		super();
@@ -14,6 +26,8 @@ public class Senia {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Id
+	@GeneratedValue
 	private long id;
 	private float cantidad;
 	private String descripcion;

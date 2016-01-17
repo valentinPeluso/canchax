@@ -1,9 +1,30 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Usuario {
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.Id;
+
+
+@Entity
+public class Usuario implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1356997851258670941L;
+
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
@@ -16,11 +37,24 @@ public class Usuario {
 		this.telefonos = telefonos;
 		this.rol = rol;
 	}
-
+	@Id
+	@GeneratedValue
 	private long id;
 	private String nombre_apellido;
+	
+	@ElementCollection
+    @CollectionTable(name="emails", joinColumns=@JoinColumn(name="usuario_id"))
+	@Column(name="email")
 	private List<String> emails;
+	
+	@ElementCollection
+    @CollectionTable(name="telefonos", joinColumns=@JoinColumn(name="usuario_id"))
+	@Column(name="telefono")
 	private List<String> telefonos;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_USUARIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Rol rol;
 	
 	public long getId() {
