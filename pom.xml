@@ -56,5 +56,11 @@
 		<artifactId>hibernate-core</artifactId>
 		<version>5.0.6.Final</version>
 	</dependency>
+	<dependency>
+		<groupId>javax.persistence</groupId>
+		<artifactId>persistence-api</artifactId>
+		<version>1.0</version>
+	</dependency>
+	
   </dependencies>
 </project>
