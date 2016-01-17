@@ -52,7 +52,12 @@ public class Turno implements Serializable{
 	@JoinColumn(name = "ID_PREDIO")
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Predio predio;
+	
 	private Date horario;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_SENIA")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Senia senia;
 	
 	public static void main(String[] args) {

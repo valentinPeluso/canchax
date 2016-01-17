@@ -1,34 +1,31 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Cascade;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Producto implements Serializable {
 
-	private static final long serialVersionUID = -3646947927056325570L;
-
-	public Producto(long id, String codigo, String descripcion, int cantidad, Usuario provedor, float precio_compra,
-			float precio_venta, String foto) {
+	public Producto(String codigo, String descripcion, int cantidad, List<Usuario> usuarios_venden_producto,
+			float precio_compra, float precio_venta, String foto, List<Predio> predios_venden_producto) {
 		super();
-		this.id = id;
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.cantidad = cantidad;
-		this.provedor = provedor;
+		this.usuarios_venden_producto = usuarios_venden_producto;
 		this.precio_compra = precio_compra;
 		this.precio_venta = precio_venta;
 		this.foto = foto;
+		this.predios_venden_producto = predios_venden_producto;
 	}
+	
 	public Producto() {
 		// TODO Auto-generated constructor stub
 	}
@@ -39,18 +36,7 @@ public class Producto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Producto(String codigo, String descripcion, Usuario provedor, int cantidad, float precio_compra,
-			float precio_venta, String foto) {
-		// TODO Auto-generated constructor stub
-		super();
-		this.codigo = codigo;
-		this.descripcion = descripcion;
-		this.cantidad = cantidad;
-		this.provedor = provedor;
-		this.precio_compra = precio_compra;
-		this.precio_venta = precio_venta;
-		this.foto = foto;
-	}
+	private static final long serialVersionUID = -3646947927056325570L;
 	
 	@Id
 	@GeneratedValue
@@ -61,13 +47,15 @@ public class Producto implements Serializable {
 	@Column(nullable = true)
 	private int cantidad;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "ID_USUARIO")
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
-	private Usuario provedor;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "productos")
+	private List<Usuario> usuarios_venden_producto;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "productos")
+	private List<Predio> predios_venden_producto;
 	
 	@Column(nullable = true)
 	private float precio_compra;
+	
 	@Column(nullable = true)
 	private float precio_venta;
 	
@@ -98,12 +86,7 @@ public class Producto implements Serializable {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public Usuario getProvedor() {
-		return provedor;
-	}
-	public void setProvedor(Usuario provedor) {
-		this.provedor = provedor;
-	}
+
 	public float getPrecio_compra() {
 		return precio_compra;
 	}
@@ -121,6 +104,20 @@ public class Producto implements Serializable {
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	public List<Usuario> getUsuarios_venden_producto() {
+		return usuarios_venden_producto;
+	}
+	public void setUsuarios_venden_producto(List<Usuario> usuarios_venden_producto) {
+		this.usuarios_venden_producto = usuarios_venden_producto;
+	}
+
+	public List<Predio> getPredios_venden_producto() {
+		return predios_venden_producto;
+	}
+
+	public void setPredios_venden_producto(List<Predio> predios_venden_producto) {
+		this.predios_venden_producto = predios_venden_producto;
 	}
 	
 	

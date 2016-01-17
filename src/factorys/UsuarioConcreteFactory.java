@@ -1,7 +1,9 @@
 package factorys;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Predio;
 import modelo.Rol;
 import modelo.Usuario;
 
@@ -14,7 +16,9 @@ public class UsuarioConcreteFactory extends UsuarioFactory {
 	@Override
 	public Usuario create(String nombre_apellido, List<String> emails, List<String> telefonos, Rol rol) {
 		// TODO Auto-generated method stub
-		return new Usuario(nombre_apellido,emails,telefonos,rol);
+		List <Predio> predios_trabaja = new ArrayList<Predio>();
+		predios_trabaja.add(Predio.getInstance());
+		return new Usuario(nombre_apellido,emails,telefonos,rol,predios_trabaja);
 	}
 
 }

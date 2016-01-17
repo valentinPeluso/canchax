@@ -1,9 +1,5 @@
 package factorys;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import modelo.Producto;
 import modelo.RolAdministrador;
 import modelo.RolEmpleado;
 import modelo.RolProvedor;
@@ -29,8 +25,7 @@ public class RolConcreteFactory extends RolFactory {
 	@Override
 	public RolProvedor createRolProvedor(String descripcion) {
 		// TODO Auto-generated method stub
-		List<Producto> productos = new ArrayList<Producto>();
-		return new RolProvedor(descripcion,productos);
+		return new RolProvedor(descripcion);
 	}
 
 }

@@ -1,5 +1,8 @@
 package factorys;
 
+import java.util.List;
+
+import modelo.Predio;
 import modelo.Producto;
 import modelo.Usuario;
 
@@ -16,10 +19,10 @@ public class ProductoConcreteFactory extends ProductoFactory{
 	}
 
 	@Override
-	public Producto create(String codigo, String descripcion, Usuario provedor, int cantidad, float precio_compra,
-			float precio_venta, String foto) {
+	public Producto create(String codigo, String descripcion, List<Usuario> usuarios_venden_producto, int cantidad, float precio_compra,
+			float precio_venta, String foto,List<Predio> predios_venden_producto) {
 		// TODO Auto-generated method stub
-		return new Producto(codigo,descripcion,provedor,cantidad,precio_compra,precio_venta,foto);
+		return new Producto(codigo,descripcion,cantidad,usuarios_venden_producto,precio_compra,precio_venta,foto,predios_venden_producto);
 	}
 
 }

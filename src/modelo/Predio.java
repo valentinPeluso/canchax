@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
@@ -25,27 +30,35 @@ public class Predio implements Serializable{
 	private long id;
 	private String direccion;
 	
-	@OneToMany()
-	@JoinColumn(name="ID_PREDIO")
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "predio_usuario", joinColumns = { 
+			@JoinColumn(name = "ID_PREDIO", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { 
+					@JoinColumn(name = "ID_USUARIO", nullable = false, updatable = false) })
+	@Column(nullable = true)
 	private List<Usuario> empleados;
 	
 	@OneToMany()
 	@JoinColumn(name="ID_PREDIO")
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Column(nullable = true)
 	private List<Cancha> canchas;
 	
 	@OneToMany()
 	@JoinColumn(name="ID_PREDIO")
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Column(nullable = true)
 	private List<Turno> turnos;
 	
-	@OneToMany()
-	@JoinColumn(name="ID_PREDIO")
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "predio_producto", joinColumns = { 
+			@JoinColumn(name = "ID_PREDIO", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { 
+					@JoinColumn(name = "ID_PRODUCTO", nullable = false, updatable = false) })
+	@Column(nullable = true)
 	private List<Producto> productos;
 	
-	protected Predio() {
+	public Predio() {
 	    
 	}	
 	
