@@ -1,6 +1,20 @@
 package modelo;
 
-public class Producto {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Cascade;
+
+@Entity
+public class Producto implements Serializable {
+
+	private static final long serialVersionUID = -3646947927056325570L;
 
 	public Producto(long id, String codigo, String descripcion, int cantidad, Usuario provedor, float precio_compra,
 			float precio_venta, String foto) {
@@ -36,12 +50,19 @@ public class Producto {
 		this.precio_venta = precio_venta;
 		this.foto = foto;
 	}
-
+	
+	@Id
+	@GeneratedValue
 	private long id;
 	private String codigo;
 	private String descripcion;
 	private int cantidad;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_USUARIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Usuario provedor;
+	
 	private float precio_compra;
 	private float precio_venta;
 	private String foto;

@@ -1,6 +1,21 @@
 package modelo;
 
-public abstract class Rol {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Rol implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2032453365123805230L;
 
 	public Rol(String descripcion) {
 		super();
@@ -11,6 +26,8 @@ public abstract class Rol {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Id
+	@GeneratedValue
 	private long id;
 	private String descripcion;
 	

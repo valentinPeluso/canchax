@@ -1,8 +1,16 @@
 package modelo;
 
-public class Cancha {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Cancha implements Serializable {
 	
+	private static final long serialVersionUID = -8741863440005330443L;
+
 	public Cancha() {
 		// TODO Auto-generated constructor stub
 		super();
@@ -14,7 +22,9 @@ public class Cancha {
 		super();
 		this.descripcion = descripcion;
 	}
-
+	
+	@Id
+	@GeneratedValue
 	private long id;
 	private String descripcion;
 

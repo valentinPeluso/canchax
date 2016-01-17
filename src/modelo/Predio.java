@@ -1,18 +1,48 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Predio {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
+
+@Entity
+public class Predio implements Serializable{
 	
+	private static final long serialVersionUID = 749601173011916634L;
+
 	//singleton
 	private static Predio instance = null;
-	
+
+	@Id
+	@GeneratedValue
 	private long id;
 	private String direccion;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private List<Usuario> empleados;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private List<Cancha> canchas;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private List<Turno> turnos;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private List<Producto> productos;
 	
 	protected Predio() {

@@ -1,7 +1,17 @@
 package modelo;
 
-public class RolEmpleado extends Rol {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@Entity
+public class RolEmpleado extends Rol implements Serializable {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7351564284248335810L;
 
 	public RolEmpleado(String descripcion, String user, String pass) {
 		super(descripcion);
