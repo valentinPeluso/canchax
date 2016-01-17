@@ -10,8 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import persistencia.PersistenceManager;
+
 import daos.GenericDAO;
+import persistencia.PersistenceManager;
 
 
 public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
@@ -112,5 +113,6 @@ public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
 		etx.commit();
 		return items;
 	}
+	
 
 }
