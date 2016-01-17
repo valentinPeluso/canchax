@@ -21,4 +21,14 @@ public class UsuarioConcreteFactory extends UsuarioFactory {
 		return new Usuario(nombre_apellido,emails,telefonos,rol,predios_trabaja);
 	}
 
+	@Override
+	public Usuario create(String nombre_apellido, Rol rol) {
+		// TODO Auto-generated method stub
+		List<String> emails = new ArrayList<String>();
+		List<String> telefonos = new ArrayList<String>();
+		List <Predio> predios_trabaja = new ArrayList<Predio>();
+		predios_trabaja.add(Predio.getInstance());
+		return new Usuario(nombre_apellido,emails,telefonos,rol,predios_trabaja);
+	}
+
 }

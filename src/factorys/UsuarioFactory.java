@@ -12,5 +12,6 @@ public abstract class UsuarioFactory {
 	}
 	
 	public abstract Usuario create(String nombre_apellido, List<String> emails, List<String> telefonos, Rol rol);
+	public abstract Usuario create(String nombre_apellido, Rol rol);
 
 }
