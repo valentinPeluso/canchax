@@ -14,5 +14,6 @@ public interface GenericDAO<T> {
 	public Object find(Serializable id);
 	public List<T> list();
 	public List<T> get(String where, Hashtable<String, Object> parameters);
+	public List<T> list(int limit, int offset);
 	
 }

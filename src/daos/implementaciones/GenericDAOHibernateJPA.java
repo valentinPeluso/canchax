@@ -113,6 +113,14 @@ public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
 		etx.commit();
 		return items;
 	}
+	@Override
+	public List<T> list(int limit, int offset) {
+		 EntityTransaction etx = this.getEntityManager().getTransaction();
+		 etx.begin();
+		 List<T> items = (List<T>) ((this.getEntityManager().createQuery(String.format("FROM %s", this.getClassName()))).setFirstResult(offset).setMaxResults(limit).getResultList());
+		 etx.commit();
+		 return items;
+	}
 	
 
 }

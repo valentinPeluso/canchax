@@ -56,7 +56,7 @@ public class Usuario implements Serializable{
 	@Column(name="telefono")
 	private List<String> telefonos;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "ID_ROL")
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Rol rol;
