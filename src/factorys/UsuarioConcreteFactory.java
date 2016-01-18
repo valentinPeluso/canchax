@@ -3,32 +3,35 @@ package factorys;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Predio;
-import modelo.Rol;
-import modelo.Usuario;
+import modelo.Administrador;
+import modelo.Empleado;
+import modelo.Producto;
+import modelo.Provedor;
 
 public class UsuarioConcreteFactory extends UsuarioFactory {
 
 	public UsuarioConcreteFactory() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
-	public Usuario create(String nombre_apellido, List<String> emails, List<String> telefonos, Rol rol) {
-		// TODO Auto-generated method stub
-		List <Predio> predios_trabaja = new ArrayList<Predio>();
-		predios_trabaja.add(Predio.getInstance());
-		return new Usuario(nombre_apellido,emails,telefonos,rol,predios_trabaja);
+	public Empleado createEmpleado(String nombre_apellido, List<String> emails, List<String> telefonos, String user,
+			String pass) {
+		return new Empleado(nombre_apellido,emails,telefonos,user,pass);
 	}
 
 	@Override
-	public Usuario create(String nombre_apellido, Rol rol) {
+	public Administrador createAdministrador(String nombre_apellido, List<String> emails, List<String> telefonos,
+			String user, String pass) {
 		// TODO Auto-generated method stub
-		List<String> emails = new ArrayList<String>();
-		List<String> telefonos = new ArrayList<String>();
-		List <Predio> predios_trabaja = new ArrayList<Predio>();
-		predios_trabaja.add(Predio.getInstance());
-		return new Usuario(nombre_apellido,emails,telefonos,rol,predios_trabaja);
+		return new Administrador(nombre_apellido,emails,telefonos,user,pass);
+	}
+
+	@Override
+	public Provedor createProvedor(String nombre_apellido, List<String> emails, List<String> telefonos) {
+		// TODO Auto-generated method stub
+		List <Producto> productos = new ArrayList<Producto>();
+		return new Provedor(nombre_apellido,emails,telefonos,productos);
 	}
 
 }

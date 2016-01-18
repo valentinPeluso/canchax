@@ -5,10 +5,9 @@
 		<class>modelo.Cancha</class>
 		<class>modelo.Predio</class>
 		<class>modelo.Producto</class>
-		<class>modelo.Rol</class>
-		<class>modelo.RolAdministrador</class>
-		<class>modelo.RolEmpleado</class>
-		<class>modelo.RolProvedor</class>
+		<class>modelo.Administrador</class>
+		<class>modelo.Empleado</class>
+		<class>modelo.Provedor</class>
 		<class>modelo.Turno</class>
 		<class>modelo.Usuario</class>
 		<class>modelo.Senia</class>
@@ -17,6 +16,7 @@
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/canchax"/>
 			<property name="hibernate.connection.password" value="root"/>			
 			<property name="hibernate.connection.username" value="root" />
+			<property name="show_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>

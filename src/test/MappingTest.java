@@ -2,21 +2,19 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
-import daos.CanchaDAO;
 import daos.PredioDAO;
-import daos.implementaciones.CanchaDAOHibernateJPA;
 import daos.implementaciones.PredioDAOHibernateJPA;
 import factorys.CanchaConcreteFactory;
 import factorys.CanchaFactory;
 import factorys.PredioConcreteFactory;
 import factorys.PredioFactory;
-import factorys.RolConcreteFactory;
-import factorys.RolFactory;
 import factorys.UsuarioConcreteFactory;
 import factorys.UsuarioFactory;
+import modelo.Administrador;
 import modelo.Cancha;
+import modelo.Empleado;
 import modelo.Predio;
-import modelo.Usuario;
+import modelo.Provedor;
 
 public class MappingTest {
 
@@ -36,16 +34,25 @@ public class MappingTest {
 		List<Cancha> canchas = new ArrayList<Cancha>();
 		canchas.add(cancha_2);
 		canchas.add(cancha_1);
-		predio.setCanchas(canchas);
-		
-		RolFactory rol_factory = new RolConcreteFactory();		
+		predio.setCanchas(canchas);		
+			
 		UsuarioFactory usuario_factory = new UsuarioConcreteFactory();
 		
-		Usuario empleado_1 = usuario_factory.create("Juan Perez", rol_factory.createRolEmpleado("Empleado", "user", "1234"));
-		List<Usuario> empleados = new ArrayList<Usuario>();
+		Empleado empleado_1 = usuario_factory.createEmpleado("Valentin", new ArrayList<String>(), new ArrayList<String>(), "Valen", "1234");
+		List<Empleado> empleados = new ArrayList<Empleado>();
 		empleados.add(empleado_1);
 		
+		Administrador administrador_1 = usuario_factory.createAdministrador("Admin", new ArrayList<String>(), new ArrayList<String>(), "Admin", "1234");
+		List<Administrador> administradores = new ArrayList<Administrador>();
+		administradores.add(administrador_1);
+		
+		Provedor provedor_1 = usuario_factory.createProvedor("Juan Perez", new ArrayList<String>(), new ArrayList<String>());
+		List<Provedor> provedores = new ArrayList<Provedor>();
+		provedores.add(provedor_1);
+		
 		predio.setEmpleados(empleados);
+		predio.setAdministradores(administradores);
+		predio.setProvedores(provedores);
 		
 		predio_dao.save(predio);
 

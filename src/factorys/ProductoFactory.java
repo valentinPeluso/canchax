@@ -4,7 +4,7 @@ import java.util.List;
 
 import modelo.Predio;
 import modelo.Producto;
-import modelo.Usuario;
+import modelo.Provedor;
 
 public abstract class ProductoFactory {
 
@@ -13,6 +13,6 @@ public abstract class ProductoFactory {
 	}
 	
 	public abstract Producto create(String codigo, String descripcion);
-	public abstract Producto create(String codigo, String descripcion,List<Usuario> usuarios_venden_producto, int cantidad, float precio_compra,float precio_venta,String foto,List<Predio> predios_venden_producto);
+	public abstract Producto create(String codigo, String descripcion,List<Provedor> usuarios_venden_producto, int cantidad, float precio_compra,float precio_venta,String foto,List<Predio> predios_venden_producto);
 
 }

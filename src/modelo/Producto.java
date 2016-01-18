@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Producto implements Serializable {
 
-	public Producto(String codigo, String descripcion, int cantidad, List<Usuario> usuarios_venden_producto,
+	public Producto(String codigo, String descripcion, int cantidad, List<Provedor> usuarios_venden_producto,
 			float precio_compra, float precio_venta, String foto, List<Predio> predios_venden_producto) {
 		super();
 		this.codigo = codigo;
@@ -48,7 +48,7 @@ public class Producto implements Serializable {
 	private int cantidad;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "productos")
-	private List<Usuario> usuarios_venden_producto;
+	private List<Provedor> usuarios_venden_producto;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "productos")
 	private List<Predio> predios_venden_producto;
@@ -105,10 +105,10 @@ public class Producto implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public List<Usuario> getUsuarios_venden_producto() {
+	public List<Provedor> getUsuarios_venden_producto() {
 		return usuarios_venden_producto;
 	}
-	public void setUsuarios_venden_producto(List<Usuario> usuarios_venden_producto) {
+	public void setUsuarios_venden_producto(List<Provedor> usuarios_venden_producto) {
 		this.usuarios_venden_producto = usuarios_venden_producto;
 	}
 

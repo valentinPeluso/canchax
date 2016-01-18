@@ -1,7 +1,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,6 +19,20 @@ import org.hibernate.annotations.Cascade;
 @Entity
 public class Predio implements Serializable{
 	
+	public Predio(String direccion, List<Empleado> empleados, List<Administrador> administradores,
+			List<Provedor> provedores, List<Cancha> canchas, List<Turno> turnos, List<Producto> productos) {
+		super();
+		this.direccion = direccion;
+		this.empleados = empleados;
+		this.administradores = administradores;
+		this.provedores = provedores;
+		this.canchas = canchas;
+		this.turnos = turnos;
+		this.productos = productos;
+	}
+
+
+
 	private static final long serialVersionUID = 749601173011916634L;
 
 	//singleton
@@ -30,13 +43,20 @@ public class Predio implements Serializable{
 	private long id;
 	private String direccion;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "predio_usuario", joinColumns = { 
-			@JoinColumn(name = "ID_PREDIO", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { 
-					@JoinColumn(name = "ID_USUARIO", nullable = false, updatable = false) })
-	@Column(nullable = true)
-	private List<Usuario> empleados;
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	private List<Empleado> empleados;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	private List<Administrador> administradores;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	private List<Provedor> provedores;
 	
 	@OneToMany()
 	@JoinColumn(name="ID_PREDIO")
@@ -62,24 +82,17 @@ public class Predio implements Serializable{
 	    
 	}	
 	
-	public Predio(String direccion, ArrayList<Usuario> empleados, ArrayList<Cancha> canchas,
-			ArrayList<Turno> turnos, ArrayList<Producto> productos) {
-		// TODO Auto-generated constructor stub
-		super();		
-		this.direccion = direccion;
-		this.empleados = empleados;
-		this.canchas = canchas;
-		this.turnos = turnos;
-		this.productos = productos;
+	
+	
+	public static void setInstance(Predio instance) {
+		Predio.instance = instance;
 	}
-
 	public static Predio getInstance() {
 	     if(instance == null) {
 	         instance = new Predio();
 	     }
 	     return instance;
 	}
-	
 	public long getId() {
 		return id;
 	}
@@ -92,12 +105,7 @@ public class Predio implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public List<Usuario> getEmpleados() {
-		return empleados;
-	}
-	public void setEmpleados(List<Usuario> empleados) {
-		this.empleados = empleados;
-	}
+	
 	public List<Cancha> getCanchas() {
 		return canchas;
 	}
@@ -116,6 +124,41 @@ public class Predio implements Serializable{
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
-	
 
+
+
+	public List<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+
+
+	public void setEmpleados(List<Empleado> empleados) {
+		this.empleados = empleados;
+	}
+
+
+
+	public List<Administrador> getAdministradores() {
+		return administradores;
+	}
+
+
+
+	public void setAdministradores(List<Administrador> administradores) {
+		this.administradores = administradores;
+	}
+
+
+
+	public List<Provedor> getProvedores() {
+		return provedores;
+	}
+
+
+
+	public void setProvedores(List<Provedor> provedores) {
+		this.provedores = provedores;
+	}
+	
 }
