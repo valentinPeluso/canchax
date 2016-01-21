@@ -83,7 +83,7 @@ public class GenericAPI <T, Service> {
         T entity = (T) JsonManager.toObject(data, this.getObjectParameterClass(0));
         this.setEntityId(Long.parseLong(id), entity);
         try {
-            entity = (T)((GenericService)this.service).update(entity);
+            entity = (T)((GenericService)this.service).update(entity,Long.parseLong(id));
         } catch (ServiceException ex) {
             return this.handleException(ex);
         }

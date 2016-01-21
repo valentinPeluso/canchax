@@ -25,6 +25,10 @@ public class Empleado extends Usuario implements Serializable {
 	private String user;
 	private String pass;	
 	
+	public long getId() {
+		return super.getId();
+	}
+	
 	public String getUser() {
 		return user;
 	}

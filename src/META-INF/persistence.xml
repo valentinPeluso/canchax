@@ -11,6 +11,7 @@
 		<class>modelo.Turno</class>
 		<class>modelo.Usuario</class>
 		<class>modelo.Senia</class>
+		<class>logs.Log</class>
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/canchax"/>

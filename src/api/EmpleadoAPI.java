@@ -1,30 +1,24 @@
 package api;
 import api.GenericAPI;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import json.JsonManager;
-import modelo.Usuario;
+import modelo.Empleado;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import services.ServiceException;
-import services.UsuarioService;
+import services.EmpleadoService;
 import utils.ValidationUtils;
 
-@Path("/usuarios")
+@Path("/empleados")
 @Produces("application/json")
-public class UsuariosAPI extends GenericAPI<Usuario, UsuarioService> {
+public class EmpleadoAPI extends GenericAPI<Empleado, EmpleadoService> {
 
-    public UsuariosAPI() throws Exception {
+    public EmpleadoAPI() throws Exception {
         super();
     }
 
@@ -35,15 +29,15 @@ public class UsuariosAPI extends GenericAPI<Usuario, UsuarioService> {
         if ((id == null) || id.trim().length() == 0) {
             return Response.serverError().entity("ID no puede estar en blanco").build();
         }
-        Usuario usuario;
+        Empleado usuario;
         try {
-            usuario = (Usuario) this.service.get(Integer.parseInt(id));
+            usuario = (Empleado) this.service.get(Integer.parseInt(id));
         } catch (ServiceException ex) {
             return this.handleException(ex);
         }
         JsonNode node = JsonManager.toJsonTree(usuario);
-        if (node.has("clave")) {
-            ((ObjectNode) node).remove("clave");
+        if (node.has("pass")) {
+            ((ObjectNode) node).remove("pass");
         }
         return Response.status(200).entity(node.toString()).build();
     }
@@ -52,24 +46,24 @@ public class UsuariosAPI extends GenericAPI<Usuario, UsuarioService> {
     @Path("/")
     @Produces("application/json")
     public Response list(@QueryParam("limit") String limit, @QueryParam("offset") String offset) {
-        List<Usuario> usuarios;
+        List<Empleado> empleados;
         try {
             if (!ValidationUtils.isNullOrEmpty(limit)) {
                 if (ValidationUtils.isNullOrEmpty(offset)) {
                     offset = "0";
                 }
-                usuarios = this.service.list(Integer.parseInt(limit.trim()), Integer.parseInt(offset.trim()));
+                empleados = this.service.list(Integer.parseInt(limit.trim()), Integer.parseInt(offset.trim()));
             } else {
-                usuarios = this.service.list();
+                empleados = this.service.list();
             }
         } catch (ServiceException ex) {
             return this.handleException(ex);
         }
-        JsonNode arrNode = JsonManager.toJsonTree(usuarios);
+        JsonNode arrNode = JsonManager.toJsonTree(empleados);
         if (arrNode.isArray()) {
             for (final JsonNode objNode : arrNode) {
-                if (objNode.has("clave")) {
-                    ((ObjectNode) objNode).remove("clave");
+                if (objNode.has("pass")) {
+                    ((ObjectNode) objNode).remove("pass");
                 }
             }
         }
@@ -79,37 +73,43 @@ public class UsuariosAPI extends GenericAPI<Usuario, UsuarioService> {
     @POST
     @Path("/{id}")
     @Produces("application/json")
-    public Response update(@PathParam("id") String id, @FormParam("data") String data) {
+    @Consumes("application/json")
+    public Response update(@PathParam("id") String id, String data) {
         if ((id == null) || id.trim().length() == 0) {
             return Response.serverError().entity("ID incorrecto").build();
         }
-        Usuario usuario = (Usuario) JsonManager.toObject(data, Usuario.class);
-        usuario.setId(Long.parseLong(id));
+        Empleado empleado = (Empleado) JsonManager.toObject(data, Empleado.class);
+        empleado.setId(Long.parseLong(id));
         try {
-            usuario = this.service.update(usuario);
+        	empleado = this.service.update(empleado);
         } catch (ServiceException ex) {
             return this.handleException(ex);
+        }        
+        JsonNode node = JsonManager.toJsonTree(empleado);
+        if (node.has("pass")) {
+            ((ObjectNode) node).remove("pass");
         }
-        HashMap<String, String> result = new HashMap<String, String>();
-        result.put("error", "0");
-        result.put("error_msg", null);
-        return Response.status(200).entity(JsonManager.toJsonString(result)).build();
+        return Response.status(200).entity(node.toString()).build();
     }
 
     @POST
     @Path("/")
     @Produces("application/json")
-    public Response create(@FormParam("data") String data) {
+    @Consumes("application/json")
+    public Response create(String data) {
         if (data == null || data.trim().length() == 0) {
-            return Response.status(200).entity(JsonManager.toJsonString(new Usuario())).build();
+            return Response.serverError().entity("Información invalida").build();
         }
-        Usuario usuario = null;
-        usuario = (Usuario) JsonManager.toObject(data, Usuario.class);
+        Empleado empleado = null;
+        empleado = (Empleado) JsonManager.toObject(data, Empleado.class);        
         try {
-            this.service.create(usuario);
+            this.service.create(empleado);
         } catch (ServiceException ex) {
             return this.handleException(ex);
         }
-        return Response.status(200).entity(JsonManager.toJsonString(usuario)).build();
+        JsonNode node = JsonManager.toJsonTree(empleado);        
+        return Response.status(200).entity(node.toString()).build();
     }
+    
+   
 }

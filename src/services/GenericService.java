@@ -2,6 +2,8 @@ package services;
 
 import aspectos.DataRow;
 import daos.GenericDAO;
+import modelo.Empleado;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
@@ -34,9 +36,9 @@ public abstract class GenericService<T, DaoT> {
     public Object get(long id) throws ServiceException {
         return this.dao.find(id);
     }
-
-    public T update(T object) throws ServiceException {
-        T persistedObject = (T) this.get(((DataRow) object).getId());
+   
+	public T update(T object,long id) throws ServiceException {
+		T persistedObject = (T) this.get(id);
         if (persistedObject == null) {
             ServiceException exception = new ServiceException();
             exception.setErrorCode(1);
@@ -73,9 +75,9 @@ public abstract class GenericService<T, DaoT> {
                     field.set(persistedObject, field.get(object));
                 }
             } catch (IllegalArgumentException ex) {
-                Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {
-                Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         this.dao.update(persistedObject);
@@ -105,4 +107,5 @@ public abstract class GenericService<T, DaoT> {
     public void create(T object) throws ServiceException {
         this.dao.save(object);
     }
+	
 }
