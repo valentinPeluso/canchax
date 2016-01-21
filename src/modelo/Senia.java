@@ -9,11 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Senia implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7391394693390747530L;
-
 	public Senia(long id, float cantidad, String descripcion, String telefono) {
 		super();
 		this.id = id;
@@ -26,13 +21,14 @@ public class Senia implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Id
-	@GeneratedValue
+	private static final long serialVersionUID = -7391394693390747530L;
 	private long id;
 	private float cantidad;
 	private String descripcion;
 	private String telefono;
 	
+	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}

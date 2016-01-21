@@ -7,6 +7,7 @@ import modelo.Empleado;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,96 +17,104 @@ import services.ServiceException;
 
 public abstract class GenericService<T, DaoT> {
 
-    protected GenericDAO dao = null;
+	protected GenericDAO dao = null;
 
-    public GenericService() throws ServiceException {
-        try {
-            this.dao = (GenericDAO) ((Class) ((ParameterizedType) this.getClass().
-                    getGenericSuperclass()).getActualTypeArguments()[1]).newInstance();
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GenericService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GenericService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	public GenericService() throws ServiceException {
+		try {
+			this.dao = (GenericDAO) ((Class) ((ParameterizedType) this.getClass().getGenericSuperclass())
+					.getActualTypeArguments()[1]).newInstance();
+		} catch (InstantiationException ex) {
+			Logger.getLogger(GenericService.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			Logger.getLogger(GenericService.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    public GenericDAO getDAO() throws ServiceException {
-        return this.dao;
-    }
+	public GenericDAO getDAO() throws ServiceException {
+		return this.dao;
+	}
 
-    public Object get(long id) throws ServiceException {
-        return this.dao.find(id);
-    }
-   
-	public T update(T object,long id) throws ServiceException {
+	public Object get(long id) throws ServiceException {
+		return this.dao.find(id);
+	}
+
+	public T update(T object, long id) throws ServiceException {
 		T persistedObject = (T) this.get(id);
-        if (persistedObject == null) {
-            ServiceException exception = new ServiceException();
-            exception.setErrorCode(1);
-            exception.addErrorMessage("Objeto inexistente");
-            throw exception;
-        }
-        LinkedList<Field> fields = new LinkedList<Field>();
+		if (persistedObject == null) {
+			ServiceException exception = new ServiceException();
+			exception.setErrorCode(1);
+			exception.addErrorMessage("Objeto inexistente");
+			throw exception;
+		}
+		LinkedList<Field> fields = new LinkedList<Field>();
 
-        fields.addAll(Arrays.asList(object.getClass().getDeclaredFields()));
-        Class<?> superClass = object.getClass().getSuperclass();
-        while (superClass != null) {
-            fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
-            superClass = superClass.getSuperclass();
-        }
-        for (Field field : fields) {
-            try {   
-                if ((field.getModifiers() & java.lang.reflect.Modifier.FINAL) == java.lang.reflect.Modifier.FINAL) {
-                    continue;
-                }
-                field.setAccessible(true);
-                //System.out.println("Checking: " + field.getName() + ": " + field.get(object));
-                
-                if (field.getName().equals("id")) {
-                    continue;
-                }
+		fields.addAll(Arrays.asList(object.getClass().getDeclaredFields()));
+		Class<?> superClass = object.getClass().getSuperclass();
+		while (superClass != null) {
+			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
+			superClass = superClass.getSuperclass();
+		}
+		for (Field field : fields) {
+			try {
+				if ((field.getModifiers() & java.lang.reflect.Modifier.FINAL) == java.lang.reflect.Modifier.FINAL) {
+					continue;
+				}
+				field.setAccessible(true);
+				// System.out.println("Checking: " + field.getName() + ": " +
+				// field.get(object));
 
-                if (field.get(object) == null) {
-                    continue;
-                }
-                //System.out.println("IT is NULL: " + field.get(object));
+				if (field.getName().equals("id")) {
+					continue;
+				}
 
-                if (!(field.get(object).equals(field.get(persistedObject)))) {
-                    //System.out.println("SETTING");
-                    field.set(persistedObject, field.get(object));
-                }
-            } catch (IllegalArgumentException ex) {
-                Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        this.dao.update(persistedObject);
-        
-        return object;
-    }
+				if (field.get(object) == null) {
+					continue;
+				}
+				// System.out.println("IT is NULL: " + field.get(object));
 
-    public List<T> list() throws ServiceException {
-        List<T> result = this.dao.list();
+				if (!(field.get(object).equals(field.get(persistedObject)))) {
+					// System.out.println("SETTING");
+					field.set(persistedObject, field.get(object));
+				}
+			} catch (IllegalArgumentException ex) {
+				Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (IllegalAccessException ex) {
+				Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		this.dao.update(persistedObject);
 
-        return result;
-    }
+		return object;
+	}
 
-    public List<T> list(int limit, int offset) throws ServiceException {
-        List<T> result = this.dao.list(limit, offset);
-        return result;
-    }
+	public List<T> list() throws ServiceException {
+		List<T> result = this.dao.list();
 
-    public void delete(T object) throws ServiceException {
-        this.dao.delete(((DataRow) object).getId());
-    }
+		return result;
+	}
 
-    public void delete(long id) throws ServiceException {
-        this.dao.delete(id);
-    }
+	public List<T> list(int limit, int offset) throws ServiceException {
+		List<T> result = this.dao.list(limit, offset);
+		return result;
+	}
 
-    public void create(T object) throws ServiceException {
-        this.dao.save(object);
-    }
-	
+	public List<T> list(int id) throws ServiceException {
+		Hashtable<String, Object> parameters = new Hashtable<String, Object>();
+		parameters.put("ID_PREDIO", id);
+		List<T> result = this.dao.get(".ID_PREDIO = ?", parameters);
+		return result;
+	}
+
+	public void delete(T object) throws ServiceException {
+		this.dao.delete(((DataRow) object).getId());
+	}
+
+	public void delete(long id) throws ServiceException {
+		this.dao.delete(id);
+	}
+
+	public void create(T object) throws ServiceException {
+		this.dao.save(object);
+	}
+
 }

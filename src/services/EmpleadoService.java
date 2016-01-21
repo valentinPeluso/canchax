@@ -14,7 +14,6 @@ public class EmpleadoService extends GenericService<Empleado, EmpleadoDAOHiberna
     public EmpleadoService() throws Exception {
         super();
     }
-
     
     synchronized public Empleado update(Empleado empleado) throws ServiceException {
         ServiceException exception;

@@ -17,12 +17,7 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1356997851258670941L;
+public abstract class Usuario implements Serializable{	
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
@@ -36,22 +31,15 @@ public abstract class Usuario implements Serializable{
 		this.telefonos = telefonos;		
 	}
 	
-
-	@Id
-	@GeneratedValue
+	private static final long serialVersionUID = 1356997851258670941L;
+	
 	private long id;
-	private String nombre_apellido;
-	
-	@ElementCollection
-    @CollectionTable(name="emails", joinColumns=@JoinColumn(name="ID_USUARIO"))
-	@Column(name="email")
-	private List<String> emails;
-	
-	@ElementCollection
-    @CollectionTable(name="telefonos", joinColumns=@JoinColumn(name="ID_USUARIO"))
-	@Column(name="telefono")
+	private String nombre_apellido;	
+	private List<String> emails;	
 	private List<String> telefonos;		
 	
+	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}
@@ -64,12 +52,18 @@ public abstract class Usuario implements Serializable{
 	public void setNombre_apellido(String nombre_apellido) {
 		this.nombre_apellido = nombre_apellido;
 	}
+	@ElementCollection
+    @CollectionTable(name="emails", joinColumns=@JoinColumn(name="ID_USUARIO"))
+	@Column(name="email")
 	public List<String> getEmails() {
 		return emails;
 	}
 	public void setEmails(List<String> emails) {
 		this.emails = emails;
 	}
+	@ElementCollection
+    @CollectionTable(name="telefonos", joinColumns=@JoinColumn(name="ID_USUARIO"))
+	@Column(name="telefono")
 	public List<String> getTelefonos() {
 		return telefonos;
 	}

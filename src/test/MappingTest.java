@@ -29,8 +29,8 @@ public class MappingTest {
 		Predio predio = predio_factory.create("Calle 63 nro 550 dpto 12 C");			
 	
 		CanchaFactory cancha_factory = new CanchaConcreteFactory();
-		Cancha cancha_1 = cancha_factory.create("Cancha 1",predio);
-		Cancha cancha_2 = cancha_factory.create("Cancha 2",predio);
+		Cancha cancha_1 = cancha_factory.create("Cancha 1");
+		Cancha cancha_2 = cancha_factory.create("Cancha 2");
 		List<Cancha> canchas = new ArrayList<Cancha>();
 		canchas.add(cancha_2);
 		canchas.add(cancha_1);

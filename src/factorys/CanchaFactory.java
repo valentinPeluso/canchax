@@ -1,7 +1,6 @@
 package factorys;
 
 import modelo.Cancha;
-import modelo.Predio;
 
 public abstract class CanchaFactory {	
 	
@@ -10,6 +9,6 @@ public abstract class CanchaFactory {
 		// TODO Auto-generated constructor stub
 	}
 
-	public abstract Cancha create(String descripcion, Predio predio);	
+	public abstract Cancha create(String descripcion);	
 
 }

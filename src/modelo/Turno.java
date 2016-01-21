@@ -15,10 +15,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Cascade;
 
-/**
- * @author Valenn
- *
- */
+
 @Entity
 public class Turno implements Serializable{
 
@@ -31,81 +28,57 @@ public class Turno implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Turno(String descripcion, Predio predio, Date horario, Senia senia) {
+	public Turno(String descripcion,Date horario, Senia senia) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.descripcion = descripcion;
-		this.predio = predio;
+	
 		this.horario = horario;
 		this.senia = senia;
-	}
-
-	/**
-	 * @param args
-	 */
-	@Id
-	@GeneratedValue
-	private long id;
-	private String descripcion;
+	}	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "ID_PREDIO")
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
-	private Predio predio;
+	private long id;
+	private String descripcion;	
+	
+	
 	
 	private Date horario;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "ID_SENIA")
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+
 	private Senia senia;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
-
+	
+	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public Predio getPredio() {
-		return predio;
-	}
-
-	public void setPredio(Predio predio) {
-		this.predio = predio;
-	}
-
 	public Date getHorario() {
 		return horario;
 	}
-
 	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
-
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_SENIA")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	public Senia getSenia() {
 		return senia;
 	}
-
 	public void setSenia(Senia senia) {
 		this.senia = senia;
 	}
-
-	
-
 
 }

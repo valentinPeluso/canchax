@@ -2,14 +2,11 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Provedor extends Usuario implements Serializable{
@@ -18,22 +15,17 @@ public class Provedor extends Usuario implements Serializable{
 		super(nombre_apellido, emails, telefonos);
 		this.productos = productos;
 	}
-
-	private static final long serialVersionUID = -5881039694380016458L;
-	
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "usuario_producto", joinColumns = { 
-			@JoinColumn(name = "ID_USUARIO", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { 
-					@JoinColumn(name = "ID_PRODUCTO", nullable = false, updatable = false) })
-	@Column(nullable = true)
-	private List<Producto> productos;
-	
 	public Provedor() {
 		// TODO Auto-generated constructor stub
 	}
 
+	private static final long serialVersionUID = -5881039694380016458L;
+	
+	private List<Producto> productos;
+	
+	@OneToMany()
+	@JoinColumn(name="ID_PROVEDOR")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	public List<Producto> getProductos() {
 		return productos;
 	}
