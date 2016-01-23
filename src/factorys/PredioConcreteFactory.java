@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import modelo.Administrador;
 import modelo.Cancha;
+import modelo.Compra;
 import modelo.Empleado;
 import modelo.Predio;
 import modelo.Producto;
 import modelo.Provedor;
 import modelo.Turno;
+import modelo.Venta;
 
 public class PredioConcreteFactory extends PredioFactory {
 
@@ -25,7 +27,9 @@ public class PredioConcreteFactory extends PredioFactory {
 		ArrayList<Cancha> canchas = new ArrayList<Cancha>();
 		ArrayList<Turno> turnos = new ArrayList<Turno>();
 		ArrayList<Producto> productos = new ArrayList<Producto>();
-		return new Predio(direccion,empleados,administradores,provedores,canchas,turnos,productos);
+		ArrayList<Compra> compras_realizadas = new ArrayList<Compra>();
+		ArrayList<Venta> ventas_realizadas = new ArrayList<Venta>();
+		return new Predio(direccion,empleados,administradores,provedores,canchas,turnos,productos,compras_realizadas,ventas_realizadas);
 	}
 
 }

@@ -9,21 +9,19 @@ import javax.persistence.Id;
 @Entity
 public class Cancha implements Serializable {
 	
+	private static final long serialVersionUID = -8741863440005330443L;
+	private long id;
+	private String descripcion;
+	
 	public Cancha(String descripcion) {
 		super();
 		this.descripcion = descripcion;
-	}
-
-	private static final long serialVersionUID = -8741863440005330443L;
+	}	
 
 	public Cancha() {
 		// TODO Auto-generated constructor stub
 		super();
 	}
-	
-	
-	private long id;
-	private String descripcion;
 
 	@Id
 	@GeneratedValue

@@ -11,17 +11,17 @@ import org.hibernate.annotations.Cascade;
 @Entity
 public class Provedor extends Usuario implements Serializable{
 	
+	private static final long serialVersionUID = -5881039694380016458L;
+	
+	private List<Producto> productos;	
+	
 	public Provedor(String nombre_apellido, List<String> emails, List<String> telefonos,List<Producto> productos) {
 		super(nombre_apellido, emails, telefonos);
 		this.productos = productos;
 	}
 	public Provedor() {
 		// TODO Auto-generated constructor stub
-	}
-
-	private static final long serialVersionUID = -5881039694380016458L;
-	
-	private List<Producto> productos;
+	}	
 	
 	@OneToMany()
 	@JoinColumn(name="ID_PROVEDOR")

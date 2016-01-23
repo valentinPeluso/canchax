@@ -17,13 +17,15 @@ import org.hibernate.annotations.Cascade;
 
 
 @Entity
-public class Turno implements Serializable{
-
-	/**
-	 * 
-	 */
+public class Turno implements Serializable{	
+	
 	private static final long serialVersionUID = -8160124978538221149L;
-
+	
+	private long id;
+	private String descripcion;	
+	private Date horario;
+	private Senia senia;	
+	
 	public Turno() {
 		// TODO Auto-generated constructor stub
 	}
@@ -31,25 +33,10 @@ public class Turno implements Serializable{
 	public Turno(String descripcion,Date horario, Senia senia) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.descripcion = descripcion;
-	
+		this.descripcion = descripcion;	
 		this.horario = horario;
 		this.senia = senia;
-	}	
-	
-	private long id;
-	private String descripcion;	
-	
-	
-	
-	private Date horario;
-	
-
-	private Senia senia;
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
+	}		
 	
 	@Id
 	@GeneratedValue

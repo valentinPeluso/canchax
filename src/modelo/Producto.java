@@ -10,6 +10,16 @@ import javax.persistence.Id;
 @Entity
 public class Producto implements Serializable {
 
+	private static final long serialVersionUID = -3646947927056325570L;	
+	
+	private long id;
+	private String codigo;
+	private String descripcion;
+	private int cantidad;
+	private float precio_compra;
+	private float precio_venta;
+	private String foto;	
+	
 	public Producto(String codigo, String descripcion, int cantidad,float precio_compra, float precio_venta, String foto) {
 		super();
 		this.codigo = codigo;
@@ -28,20 +38,7 @@ public class Producto implements Serializable {
 		super();
 		this.codigo = codigo;
 		this.descripcion = descripcion;
-	}
-
-	private static final long serialVersionUID = -3646947927056325570L;
-	
-	
-	private long id;
-	private String codigo;
-	private String descripcion;
-	private int cantidad;
-	private float precio_compra;
-	private float precio_venta;
-	
-	@Column(nullable = true)
-	private String foto;
+	}	
 	
 	@Id
 	@GeneratedValue
@@ -84,6 +81,7 @@ public class Producto implements Serializable {
 	public void setPrecio_venta(float precio_venta) {
 		this.precio_venta = precio_venta;
 	}
+	@Column(nullable = true)
 	public String getFoto() {
 		return foto;
 	}

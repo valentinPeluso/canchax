@@ -10,5 +10,4 @@ public class PredioDAOHibernateJPA extends GenericDAOHibernateJPA<Predio> implem
 		super();
 		this.setPersistentClass(Predio.class);
 	}
-
 }

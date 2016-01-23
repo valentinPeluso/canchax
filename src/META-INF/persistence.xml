@@ -11,6 +11,8 @@
 		<class>modelo.Turno</class>
 		<class>modelo.Usuario</class>
 		<class>modelo.Senia</class>
+		<class>modelo.Venta</class>
+		<class>modelo.Compra</class>
 		<class>logs.Log</class>
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

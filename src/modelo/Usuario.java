@@ -18,6 +18,13 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario implements Serializable{	
+	
+	private static final long serialVersionUID = 1356997851258670941L;
+	
+	private long id;
+	private String nombre_apellido;	
+	private List<String> emails;	
+	private List<String> telefonos;	
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
@@ -30,13 +37,6 @@ public abstract class Usuario implements Serializable{
 		this.emails = emails;
 		this.telefonos = telefonos;		
 	}
-	
-	private static final long serialVersionUID = 1356997851258670941L;
-	
-	private long id;
-	private String nombre_apellido;	
-	private List<String> emails;	
-	private List<String> telefonos;		
 	
 	@Id
 	@GeneratedValue

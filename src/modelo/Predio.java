@@ -15,27 +15,9 @@ import org.hibernate.annotations.Cascade;
 @Entity
 public class Predio implements Serializable{
 	
-	public Predio() {
-	    
-	}	
-	
-	public Predio(String direccion, List<Empleado> empleados, List<Administrador> administradores,
-			List<Provedor> provedores, List<Cancha> canchas, List<Turno> turnos, List<Producto> productos) {
-		super();
-		this.direccion = direccion;
-		this.empleados = empleados;
-		this.administradores = administradores;
-		this.provedores = provedores;
-		this.canchas = canchas;
-		this.turnos = turnos;
-		this.productos = productos;
-	}
-
 	private static final long serialVersionUID = 749601173011916634L;
-
-	//singleton
+	
 	private static Predio instance = null;
-
 	
 	private long id;
 	private String direccion;	
@@ -45,6 +27,27 @@ public class Predio implements Serializable{
 	private List<Cancha> canchas;	
 	private List<Turno> turnos;	
 	private List<Producto> productos;	
+	private List<Compra> compras_realizadas;	
+	private List<Venta> ventas_realizadas;	
+	
+	public Predio() {
+	    
+	}	
+	
+	public Predio(String direccion, List<Empleado> empleados, List<Administrador> administradores,
+			List<Provedor> provedores, List<Cancha> canchas, List<Turno> turnos, List<Producto> productos,
+			List<Compra> compras, List<Venta> ventas) {
+		super();
+		this.direccion = direccion;
+		this.empleados = empleados;
+		this.administradores = administradores;
+		this.provedores = provedores;
+		this.canchas = canchas;
+		this.turnos = turnos;
+		this.productos = productos;
+		this.ventas_realizadas = ventas;
+		this.compras_realizadas = compras;
+	}
 	
 	public static void setInstance(Predio instance) {
 		Predio.instance = instance;
@@ -52,8 +55,7 @@ public class Predio implements Serializable{
 	
 	public static Predio getInstance() {	    
 	     return instance;
-	}
-	
+	}	
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -124,5 +126,27 @@ public class Predio implements Serializable{
 	}
 	public void setProvedores(List<Provedor> provedores) {
 		this.provedores = provedores;
+	}
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Column(nullable = true)
+	public List<Compra> getCompras_realizadas() {
+		return compras_realizadas;
+	}
+
+	public void setCompras_realizadas(List<Compra> compras_realizadas) {
+		this.compras_realizadas = compras_realizadas;
+	}
+	@OneToMany()
+	@JoinColumn(name="ID_PREDIO")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Column(nullable = true)
+	public List<Venta> getVentas_realizadas() {
+		return ventas_realizadas;
+	}
+
+	public void setVentas_realizadas(List<Venta> ventas_realizadas) {
+		this.ventas_realizadas = ventas_realizadas;
 	}
 }
