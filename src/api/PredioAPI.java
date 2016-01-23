@@ -15,7 +15,6 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
 import json.JsonManager;
-import modelo.Empleado;
 import modelo.Predio;
 import services.PredioService;
 import services.ServiceException;
@@ -114,10 +113,17 @@ public class PredioAPI extends GenericAPI<Predio,PredioService> {
             return this.handleException(ex);
         }        
         JsonNode node = JsonManager.toJsonTree(predio);
-        //remuevo los pass de los usuarios
-//        if (node.has("pass")) {
-//            ((ObjectNode) node).remove("pass");
-//        }
+        //remuevo todos los pass de los usuarios
+        if (node.has("empleados") && node.get("empleados").isArray()) {
+        	for(final JsonNode obj : node.get("empleados")){
+        		 ((ObjectNode) obj).remove("pass");
+        	}
+        }
+        if (node.has("administradores") && node.get("administradores").isArray()) {
+        	for(final JsonNode obj : node.get("administradores")){
+        		 ((ObjectNode) obj).remove("pass");
+        	}
+        }
         return Response.status(200).entity(node.toString()).build();
     }
 

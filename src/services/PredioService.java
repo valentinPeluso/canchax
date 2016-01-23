@@ -4,7 +4,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 import daos.implementaciones.PredioDAOHibernateJPA;
-import modelo.Empleado;
 import modelo.Predio;
 import utils.ValidationUtils;
 
@@ -74,19 +73,20 @@ public class PredioService extends GenericService<Predio,PredioDAOHibernateJPA>{
     }
     
 
-    public boolean checkDuplicatedField(String field, Object value, Predio predio, boolean excludeSameObject) {
+    @SuppressWarnings("unchecked")
+	public boolean checkDuplicatedField(String field, Object value, Predio predio, boolean excludeSameObject) {
         
         if (field == null || value == null) {
             return false;
         }
-        Hashtable parameters = new Hashtable<String, Object>();
+        Hashtable<String, Object> parameters = new Hashtable<String, Object>();
         parameters.put(field, value);
         String query = String.format("%s = :%s", field, field);
         if (excludeSameObject) {
             query = query.concat(" AND id != :id");
             parameters.put("id", predio.getId());
         }
-        List<Empleado> empleados = dao.get(query, parameters);
-        return (empleados.size() > 0);
+        List<Predio> predios = super.dao.get(query, parameters);
+        return (predios.size() > 0);
     }
 }

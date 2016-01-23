@@ -2,7 +2,6 @@ package api;
 import api.GenericAPI;
 import java.util.List;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import json.JsonManager;
@@ -40,29 +39,8 @@ public class EmpleadoAPI extends GenericAPI<Empleado, EmpleadoService> {
             ((ObjectNode) node).remove("pass");
         }
         return Response.status(200).entity(node.toString()).build();
-    }
+    }    
     
-    @GET
-    @Path("/{idPredio}/predio")
-    @Produces("application/json")
-    public Response getEmpleadosPertenecientesAPredio(@PathParam("idPredio") String id) {
-        if ((id == null) || id.trim().length() == 0) {
-            return Response.serverError().entity("El id del predio no puede estar en blanco").build();
-        }
-        List<Empleado> empleados;
-        
-        try {
-            empleados = this.service.list(Integer.parseInt(id));
-        } catch (ServiceException ex) {
-            return this.handleException(ex);
-        }
-        JsonNode node = JsonManager.toJsonTree(empleados);
-        if (node.has("pass")) {
-            ((ObjectNode) node).remove("pass");
-        }
-        return Response.status(200).entity(node.toString()).build();
-    }
-
     @GET
     @Path("/")
     @Produces("application/json")
