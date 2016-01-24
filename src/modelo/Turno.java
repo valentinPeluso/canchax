@@ -22,7 +22,6 @@ public class Turno implements Serializable{
 	private static final long serialVersionUID = -8160124978538221149L;
 	
 	private long id;
-	private String descripcion;	
 	private Date horario;
 	private Senia senia;	
 	
@@ -30,10 +29,9 @@ public class Turno implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Turno(String descripcion,Date horario, Senia senia) {
+	public Turno(Date horario, Senia senia) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.descripcion = descripcion;	
 		this.horario = horario;
 		this.senia = senia;
 	}		
@@ -45,12 +43,6 @@ public class Turno implements Serializable{
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 	public Date getHorario() {
 		return horario;

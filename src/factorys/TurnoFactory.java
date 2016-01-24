@@ -12,6 +12,6 @@ public abstract class TurnoFactory {
 		// TODO Auto-generated constructor stub
 	}
 
-	public abstract Turno create(String descripcion, Date horario, Senia senia);	
+	public abstract Turno create(Date horario, Senia senia);	
 
 }

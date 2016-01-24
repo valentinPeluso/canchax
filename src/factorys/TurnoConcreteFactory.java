@@ -10,8 +10,8 @@ public class TurnoConcreteFactory extends TurnoFactory {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Turno create(String descripcion, Date horario, Senia senia){			
-		return new Turno(descripcion,horario,senia);
+	public Turno create( Date horario, Senia senia){			
+		return new Turno(horario,senia);
 	}
 
 }

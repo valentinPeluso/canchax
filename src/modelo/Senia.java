@@ -14,15 +14,14 @@ public class Senia implements Serializable{
 	private float cantidad;
 	private String descripcion;
 	private String telefono;
-
-	public Senia(long id, float cantidad, String descripcion, String telefono) {
+	
+	public Senia(float cantidad, String descripcion, String telefono) {
 		super();
-		this.id = id;
 		this.cantidad = cantidad;
 		this.descripcion = descripcion;
 		this.telefono = telefono;
 	}
-	
+
 	public Senia() {
 		// TODO Auto-generated constructor stub
 	}
