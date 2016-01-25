@@ -1,5 +1,6 @@
 package api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,7 +16,13 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
 import json.JsonManager;
+import modelo.Administrador;
+import modelo.Cancha;
+import modelo.Empleado;
 import modelo.Predio;
+import modelo.Producto;
+import modelo.Provedor;
+import modelo.Turno;
 import services.PredioService;
 import services.ServiceException;
 import utils.ValidationUtils;
@@ -58,6 +65,117 @@ public class PredioAPI extends GenericAPI<Predio,PredioService> {
         		 ((ObjectNode) obj).remove("pass");
         	}
         }
+        return Response.status(200).entity(node.toString()).build();
+    }
+	
+	@GET
+    @Path("/{id}/productos")
+    @Produces("application/json")
+    public Response getProductos(@PathParam("id") String id) {
+        if ((id == null) || id.trim().length() == 0) {
+            return Response.serverError().entity("ID no puede estar en blanco").build();
+        }
+        ArrayList<Producto> productos;
+        try {        	     		
+        	productos = this.service.getProductos(Integer.parseInt(id));
+        } catch (ServiceException ex) {
+            return this.handleException(ex);
+        }
+        JsonNode node = JsonManager.toJsonTree(productos);
+              
+        return Response.status(200).entity(node.toString()).build();
+    }
+	
+	@GET
+    @Path("/{id}/empleados")
+    @Produces("application/json")
+    public Response getEmpleados(@PathParam("id") String id) {
+        if ((id == null) || id.trim().length() == 0) {
+            return Response.serverError().entity("ID no puede estar en blanco").build();
+        }
+        ArrayList<Empleado> empleados;
+        try {        	     		
+        	empleados = this.service.getEmpleados(Integer.parseInt(id));
+        } catch (ServiceException ex) {
+            return this.handleException(ex);
+        }
+        JsonNode node = JsonManager.toJsonTree(empleados);
+              
+        return Response.status(200).entity(node.toString()).build();
+    }
+	
+	@GET
+    @Path("/{id}/administradores")
+    @Produces("application/json")
+    public Response getAdministradores(@PathParam("id") String id) {
+        if ((id == null) || id.trim().length() == 0) {
+            return Response.serverError().entity("ID no puede estar en blanco").build();
+        }
+        ArrayList<Administrador> administradores;
+        try {        	     		
+        	administradores = this.service.getAdministradores(Integer.parseInt(id));
+        } catch (ServiceException ex) {
+            return this.handleException(ex);
+        }
+        JsonNode node = JsonManager.toJsonTree(administradores);
+              
+        return Response.status(200).entity(node.toString()).build();
+    }
+	
+	@GET
+    @Path("/{id}/provedores")
+    @Produces("application/json")
+    public Response getProvedores(@PathParam("id") String id) {
+        if ((id == null) || id.trim().length() == 0) {
+            return Response.serverError().entity("ID no puede estar en blanco").build();
+        }
+        ArrayList<Provedor> provedores;
+        try {        	     		
+        	provedores = this.service.getProvedores(Integer.parseInt(id));
+        } catch (ServiceException ex) {
+            return this.handleException(ex);
+        }
+        JsonNode node = JsonManager.toJsonTree(provedores);
+              
+        return Response.status(200).entity(node.toString()).build();
+    }
+	
+	@GET
+    @Path("/{id}/canchas")
+    @Produces("application/json")
+    public Response getCanchas(@PathParam("id") String id) {
+        if ((id == null) || id.trim().length() == 0) {
+            return Response.serverError().entity("ID no puede estar en blanco").build();
+        }
+        ArrayList<Cancha> canchas;
+        try {        	     		
+        	canchas = this.service.getCanchas(Integer.parseInt(id));
+        } catch (ServiceException ex) {
+            return this.handleException(ex);
+        }
+        JsonNode node = JsonManager.toJsonTree(canchas);
+              
+        return Response.status(200).entity(node.toString()).build();
+    }
+	
+	@GET
+    @Path("/{id}/turnos")
+    @Produces("application/json")
+    public Response getTurnos(@PathParam("id") String id,@QueryParam("desde") String desde, @QueryParam("hasta") String hasta) {
+        if ((id == null) || id.trim().length() == 0) {
+            return Response.serverError().entity("ID no puede estar en blanco").build();
+        }
+        if (ValidationUtils.isNullOrEmpty(desde) || ValidationUtils.isNullOrEmpty(hasta) ) {
+        	return Response.serverError().entity("Los atributos desde - hasta son obligatorios").build();            
+        } 
+        ArrayList<Turno> turnos;
+        try {        	     		
+        	turnos = this.service.getTurnos(Integer.parseInt(id), desde, hasta);
+        } catch (ServiceException ex) {
+            return this.handleException(ex);
+        }
+        JsonNode node = JsonManager.toJsonTree(turnos);
+              
         return Response.status(200).entity(node.toString()).build();
     }
 

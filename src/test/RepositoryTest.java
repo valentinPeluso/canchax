@@ -11,6 +11,7 @@ import modelo.Administrador;
 import modelo.Cancha;
 import modelo.Empleado;
 import modelo.Predio;
+import modelo.Producto;
 import modelo.Provedor;
 import modelo.Turno;
 
@@ -24,6 +25,7 @@ public class RepositoryTest {
 		ArrayList<Administrador> administradores = (ArrayList<Administrador>) predio_dao.getAdministradores(id);
 		ArrayList<Provedor> provedores = (ArrayList<Provedor>) predio_dao.getProvedores(id);
 		ArrayList<Cancha> canchas = (ArrayList<Cancha>) predio_dao.getCanchas(id);
+		ArrayList<Producto> productos = (ArrayList<Producto>) predio_dao.getProductos(id);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -63,6 +65,11 @@ public class RepositoryTest {
 		while(iterator_turnos.hasNext()){
 			System.out.println("Turno: " +iterator_turnos.next().getId());
 		}	
+		
+		Iterator<Producto> iterator_productos = productos.iterator();
+		while(iterator_productos.hasNext()){
+			System.out.println("Producto: " +iterator_productos.next().getDescripcion());
+		}
 	}
 
 }

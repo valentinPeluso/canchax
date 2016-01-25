@@ -98,10 +98,16 @@ public class PredioDAOHibernateJPA extends GenericDAOHibernateJPA<Predio> implem
 		}	
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> getProductos(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Query consulta = this.getEntityManager().createQuery("SELECT e.productos FROM Predio e WHERE e.id = :id");
+			consulta.setParameter("id", id);
+			return (ArrayList<Producto>) consulta.getResultList();
+		}catch(Exception e){
+			return null;
+		}	
 	}
 
 	@Override
