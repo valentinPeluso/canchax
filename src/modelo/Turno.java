@@ -10,8 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Cascade;
 
@@ -50,8 +49,7 @@ public class Turno implements Serializable{
 	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "ID_SENIA")
+	@OneToOne(fetch=FetchType.LAZY,mappedBy = "turno")
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	public Senia getSenia() {
 		return senia;

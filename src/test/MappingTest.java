@@ -91,8 +91,7 @@ public class MappingTest {
 		producto = producto_factory.create("2341", "Cerveza Quilmes", 100, 32.45f, 12.32f, "foto");
 		productos_3.add(producto);
 		producto = producto_factory.create("1234", "Cerveza brahama", 100, 21.34f, 25.00f, "foto");
-		productos_3.add(producto);		
-		
+		productos_3.add(producto);			
 		
 		List<Provedor> provedores = new ArrayList<Provedor>();
 		provedores.add(provedor_1);
@@ -103,14 +102,25 @@ public class MappingTest {
 		TurnoFactory turno_factory = new TurnoConcreteFactory();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
+		Senia senia_1 =  senia_factory.create(50.00f, "Peluso valentin", "221-2334433");
+		Senia senia_2 = senia_factory.create(50.00f, "Daiel Osvalndo", "221-7653212");
+		Senia senia_3 = senia_factory.create(50.00f, "Chavez", "221-5533222");
+		Senia senia_4 =  senia_factory.create(50.00f, "Agustin Orion", "221-6543453");
+		Senia senia_5 = senia_factory.create(50.00f, "Federico cristaldo", "221-815432");
+		Senia senia_6 = senia_factory.create(50.00f, "Carlos ruben", "221-322313");
 		
-		Turno turno_1 = turno_factory.create(sdf.parse("20/12/2014 12:20:00"), senia_factory.create(50.00f, "Peluso valentin", "221-2334433"));
-		Turno turno_6 = turno_factory.create(sdf.parse("27/12/2014 12:20:00"), senia_factory.create(50.00f, "Daiel Osvalndo", "221-7653212"));
-		Turno turno_4 = turno_factory.create(sdf.parse("22/12/2014 12:20:00"), senia_factory.create(50.00f, "Chavez", "221-5533222"));
-		Turno turno_5 = turno_factory.create(sdf.parse("23/12/2014 12:20:00"), senia_factory.create(50.00f, "Agustin Orion", "221-6543453"));		
-		Turno turno_3 = turno_factory.create(sdf.parse("21/12/2014 12:20:00"), senia_factory.create(50.00f, "Federico cristaldo", "221-815432"));
-		Turno turno_2 = turno_factory.create(sdf.parse("15/12/2014 12:20:00"), senia_factory.create(50.00f, "Carlos ruben", "221-322313"));		
-		
+		Turno turno_1 = turno_factory.create(sdf.parse("20/12/2014 12:20:00"),senia_1);
+		senia_1.setTurno(turno_1);
+		Turno turno_6 = turno_factory.create(sdf.parse("27/12/2014 12:20:00"), senia_2);
+		senia_2.setTurno(turno_6);
+		Turno turno_4 = turno_factory.create(sdf.parse("22/12/2014 12:20:00"), senia_3);
+		senia_3.setTurno(turno_4);
+		Turno turno_5 = turno_factory.create(sdf.parse("23/12/2014 12:20:00"),senia_4);	
+		senia_4.setTurno(turno_5);
+		Turno turno_3 = turno_factory.create(sdf.parse("21/12/2014 12:20:00"), senia_5);
+		senia_5.setTurno(turno_3);
+		Turno turno_2 = turno_factory.create(sdf.parse("15/12/2014 12:20:00"), senia_6);		
+		senia_6.setTurno(turno_2);
 		
 		ArrayList<Turno> turnos = new ArrayList<Turno>();
 		turnos.add(turno_6);

@@ -2,9 +2,17 @@ package modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 public class Senia implements Serializable{
@@ -14,6 +22,7 @@ public class Senia implements Serializable{
 	private float cantidad;
 	private String descripcion;
 	private String telefono;
+	private Turno turno;
 	
 	public Senia(float cantidad, String descripcion, String telefono) {
 		super();
@@ -25,9 +34,16 @@ public class Senia implements Serializable{
 	public Senia() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	@GenericGenerator(
+			name = "generator", 
+			strategy = "foreign", 
+			parameters = @Parameter(
+					name = "property", 
+					value = "turno")
+			)
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "generator")
+	@Column(name = "ID_TURNO", unique = true, nullable = false)
 	public long getId() {
 		return id;
 	}
@@ -51,6 +67,15 @@ public class Senia implements Serializable{
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	@JsonIgnore
+	public Turno getTurno() {
+		return turno;
+	}
+	public void setTurno(Turno turno) {
+		this.turno = turno;
 	}
 
 }
