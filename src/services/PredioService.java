@@ -3,8 +3,7 @@ package services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.Date;
 
 import daos.PredioDAO;
 import daos.implementaciones.PredioDAOHibernateJPA;
@@ -29,10 +28,7 @@ public class PredioService extends GenericService<Predio,PredioDAOHibernateJPA>{
         ServiceException exception;
         exception = new ServiceException();
 
-        this.validateRequiredFields(predio);
-        
-//        if (this.checkDuplicatedField("user", predio.getUser(), empleado, true))
-//            exception.addErrorMessage("Nombre de usuario ya registrado");
+        this.validateRequiredFields(predio);          
         
         if (exception.isError()) {
             throw exception;
@@ -62,15 +58,26 @@ public class PredioService extends GenericService<Predio,PredioDAOHibernateJPA>{
         return (ArrayList<Cancha>) predio_dao.getCanchas(id);
 	}
 	
-	synchronized public ArrayList<Turno> getTurnos(int id,String desde, String hasta) throws ServiceException{		
+	synchronized public ArrayList<Turno> getTurnos(int id,String desde, String hasta) throws ServiceException{
+		ServiceException exception;
+	    exception = new ServiceException();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		ArrayList<Turno> turnos = new ArrayList<Turno>();
-        try {
-			turnos = (ArrayList<Turno>) predio_dao.getTurnos(id, sdf.parse(desde), sdf.parse(hasta));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Date f_desde;
+		Date f_hasta;
+		try {
+			f_desde = sdf.parse(desde);
+		} catch (ParseException e1) {
+			 exception.addErrorMessage("Fecha desde incorrecta");
+			 throw exception;
 		}
+		try {
+			f_hasta = sdf.parse(hasta);
+		} catch (ParseException e1) {
+			 exception.addErrorMessage("Fecha hasta incorrecta");
+			 throw exception;
+		}
+		turnos = (ArrayList<Turno>) predio_dao.getTurnos(id, f_desde, f_hasta);		
         return turnos;
 	}
 
@@ -81,9 +88,6 @@ public class PredioService extends GenericService<Predio,PredioDAOHibernateJPA>{
         ServiceException exception;
         exception = new ServiceException();
         
-//        if (this.checkDuplicatedField("user", empleado.getUser(), empleado, true))
-//            exception.addErrorMessage("Nombre de usuario ya registrado");
-
         if (exception.isError()) {
             throw exception;
         }
@@ -95,20 +99,16 @@ public class PredioService extends GenericService<Predio,PredioDAOHibernateJPA>{
     private void validateRequiredFields(Predio predio) throws ServiceException {
         ServiceException exception;
         exception = new ServiceException();
+        //tengo que validar que no haya un usuario ya registrado en las colecciones de usuarios de predio
+        //tengo que validar que no registre dos canchas con la misma información    
         if (predio == null) {
             exception.addErrorMessage("Usuario inválido");
             throw exception;
         }
 
-//        if (ValidationUtils.isNullOrEmpty(empleado.getUser())) {
-//            exception.addErrorMessage("Nombre de usuario vacío.");
-//        }
-//        if (ValidationUtils.isNullOrEmpty(empleado.getNombre_apellido())) {
-//            exception.addErrorMessage("Nombre y apellido del usuario vacío.");
-//        }
-//        if (ValidationUtils.isNullOrEmpty(empleado.getPass())) {
-//            exception.addErrorMessage("Contraseña vacia.");
-//        }
+        if (ValidationUtils.isNullOrEmpty(predio.getDireccion())) {
+            exception.addErrorMessage("Dirección del predio vacía.");
+        }
 
         if (exception.isError()) {
             exception.setErrorCode(1);
@@ -116,20 +116,20 @@ public class PredioService extends GenericService<Predio,PredioDAOHibernateJPA>{
         }
     }    
 
-    @SuppressWarnings("unchecked")
-	public boolean checkDuplicatedField(String field, Object value, Predio predio, boolean excludeSameObject) {
-        
-        if (field == null || value == null) {
-            return false;
-        }
-        Hashtable<String, Object> parameters = new Hashtable<String, Object>();
-        parameters.put(field, value);
-        String query = String.format("%s = :%s", field, field);
-        if (excludeSameObject) {
-            query = query.concat(" AND id != :id");
-            parameters.put("id", predio.getId());
-        }
-        List<Predio> predios = super.dao.get(query, parameters);
-        return (predios.size() > 0);
-    }
+//    @SuppressWarnings("unchecked")
+//	public boolean checkDuplicatedField(String field, Object value, Predio predio, boolean excludeSameObject) {
+//        
+//        if (field == null || value == null) {
+//            return false;
+//        }
+//        Hashtable<String, Object> parameters = new Hashtable<String, Object>();
+//        parameters.put(field, value);
+//        String query = String.format("%s = :%s", field, field);
+//        if (excludeSameObject) {
+//            query = query.concat(" AND id != :id");
+//            parameters.put("id", predio.getId());
+//        }
+//        List<Predio> predios = super.dao.get(query, parameters);
+//        return (predios.size() > 0);
+//    }
 }

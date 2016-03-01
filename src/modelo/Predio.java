@@ -149,4 +149,19 @@ public class Predio implements Serializable{
 	public void setVentas_realizadas(List<Venta> ventas_realizadas) {
 		this.ventas_realizadas = ventas_realizadas;
 	}
+	
+	public boolean checkIfTheUserExistInTheAdministradores(Usuario usuario){
+		//verifico si dentro de la colleción de administradores existe el usuarios repetidos
+		return true;
+	}
+	
+	public boolean checkIfTheUserExistInTheEmpleados(Usuario usuario){
+		//verifico si dentro de la colleción de empelados existe el usuarios repetidos
+		return true;
+	}
+	
+	public boolean checkIfTheUserExistInTheProvedores(Usuario usuario){
+		//verifico si dentro de la colleción de provedores existe el usuarios repetidos
+		return true;
+	}
 }
