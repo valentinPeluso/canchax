@@ -1,7 +1,10 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -163,5 +166,9 @@ public class Predio implements Serializable{
 	public boolean checkIfTheUserExistInTheProvedores(Usuario usuario){
 		//verifico si dentro de la colleción de provedores existe el usuarios repetidos
 		return true;
+	}
+	
+	public ArrayList<Turno> getTurnosDesdeHasta(Date desde, Date hasta){
+		return (ArrayList<Turno>) this.getTurnos().stream().filter(t -> t.getHorario().after(desde) && t.getHorario().before(hasta)).collect(Collectors.toList());
 	}
 }

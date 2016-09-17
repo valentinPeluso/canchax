@@ -169,14 +169,28 @@ public class PredioAPI extends GenericAPI<Predio,PredioService> {
         	return Response.serverError().entity("Los atributos desde - hasta son obligatorios").build();            
         } 
         ArrayList<Turno> turnos;
-        try {        	     		
-        	turnos = this.service.getTurnos(Integer.parseInt(id), desde, hasta);
+        Predio predio;
+        //verifico si ya esta guardado el predio como singleton
+        try {
+        	predio = Predio.getInstance();        	
+        	if(predio == null){        		
+        		predio = (Predio) this.service.get(Integer.parseInt(id));        		
+        		predio.setTurnos(this.service.getTurnos(Integer.parseInt(id), desde, hasta));
+        		Predio.setInstance(predio);        		
+        	} else {
+        		if(predio.getTurnos().size() == 0){
+        			predio.setTurnos(this.service.getTurnos(Integer.parseInt(id), desde, hasta));
+        			Predio.setInstance(predio);
+        		}
+        	}   
+        	turnos = (ArrayList<Turno>) predio.getTurnos();
+        	
+        	JsonNode node = JsonManager.toJsonTree(turnos);             
+            return Response.status(200).entity(node.toString()).build();
         } catch (ServiceException ex) {
             return this.handleException(ex);
         }
-        JsonNode node = JsonManager.toJsonTree(turnos);
-              
-        return Response.status(200).entity(node.toString()).build();
+       
     }
 
     @GET
