@@ -37,7 +37,7 @@ public class RepositoryTest {
 			e.printStackTrace();
 		}
 		
-		System.out.println("-----------------");
+		System.out.println("-------Prueba valen----------");
 		System.out.println(predio.getId() + "---------" + predio.getDireccion());
 		System.out.println("-----------------");
 		
